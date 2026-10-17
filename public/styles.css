@@ -496,3 +496,5 @@ main { overflow: visible; min-height: calc(100vh - 36px); }
 /* Gulmohar petal burst */
 .petal-burst { position: fixed; width: 12px; height: 9px; border: 1.5px solid var(--ink); border-radius: 70% 0 70% 0; z-index: 300; pointer-events: none; animation: burst 1.5s cubic-bezier(.2, .7, .4, 1) forwards; }
 @keyframes burst { to { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; } }
+
+.rstop:first-of-type { transform: none; } .rstop:last-of-type { transform: translateX(-88%); }

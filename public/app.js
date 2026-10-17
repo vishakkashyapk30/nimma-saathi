@@ -530,7 +530,10 @@ function playRush() {
   const pool = rushPool().sort(() => Math.random() - 0.5);
   if (pool.length < 4) return toast('Phrasebook still loading, try again');
   let q = 0, right = 0, timer;
+  const sheet = $('#sheet');
+  const stillOpen = () => !sheet.classList.contains('hidden') && $('#rQ');
   openSheet(`<h2>Auto Rush <span class="kn muted">ಆಟೋ ರಶ್</span></h2>
+    <p class="muted" style="font-size:.86rem;font-weight:500">Read the English phrase, then click the matching Kannada before the timer runs out. Each right answer drives you one step closer. Get ${RUSH_GOAL} right in ${RUSH_QUESTIONS} questions to reach Vidhana Soudha.</p>
     <div class="rush-road" id="rRoad">
       ${RUSH_STOPS.map((s, i) => `<span class="rstop" style="left:${(i / (RUSH_STOPS.length - 1)) * 92 + 2}%"><i></i>${s}</span>`).join('')}
       <svg viewBox="0 0 64 48" class="rauto" id="rAuto"><use href="#auto-sym"/></svg>
@@ -540,8 +543,6 @@ function playRush() {
     <div class="rush-q" id="rQ"></div>
     <div class="rush-opts" id="rOpts"></div>
     <div class="rush-status" id="rStatus"></div>`, () => next());
-  const sheet = $('#sheet');
-  const stillOpen = () => !sheet.classList.contains('hidden') && $('#rQ');
   function move() { $('#rAuto').style.left = `${Math.min(right / RUSH_GOAL, 1) * 92 - 1}%`; }
   function next() {
     if (!stillOpen()) return;
@@ -616,6 +617,7 @@ $('#profileBtn').onclick = () => openProfile(false);
   const hash = new URLSearchParams(location.hash.slice(1));
   if (hash.has('demo') && !profile) profile = { name: 'Priya', lang: 'en-IN' };
   if (hash.get('tab')) setTimeout(() => go(hash.get('tab')), 0);
+  if (hash.has('rush')) setTimeout(() => playRush(), 1500);
   const first = !profile;
   if (first) profile = { name: '', lang: 'en-IN' };
   try { DATA = { ...DATA, ...(await api('phrases')) }; } catch { toast('Could not load phrasebook'); }
