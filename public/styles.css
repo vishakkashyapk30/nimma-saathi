@@ -373,3 +373,126 @@ main { overflow: visible; min-height: calc(100vh - 36px); }
   .hero-text { max-width: 75%; }
   .banner svg { width: 100px; }
 }
+
+/* =================== Bengaluru FX =================== */
+/* Splash: traffic jam that clears on green */
+#splash { position: fixed; inset: 0; z-index: 200; background: var(--yellow); display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; transition: transform .6s cubic-bezier(.7, 0, .3, 1); background-image: radial-gradient(rgba(17,17,17,.12) 1.4px, transparent 1.6px); background-size: 18px 18px; }
+#splash.out { transform: translateY(-105%); }
+.sp-title { text-align: center; transform: rotate(-3deg); animation: slam .5s cubic-bezier(.2, 1.6, .4, 1) .15s backwards; }
+@keyframes slam { from { transform: scale(2.4) rotate(-12deg); opacity: 0; } }
+.sp-kn { display: block; font-size: clamp(2rem, 6vw, 4rem); font-weight: 800; color: var(--red); -webkit-text-stroke: 1.5px var(--ink); }
+.sp-title b { display: block; font-family: var(--head); font-weight: 400; font-size: clamp(3rem, 10vw, 7.5rem); line-height: .9; color: var(--white); -webkit-text-stroke: 3px var(--ink); text-shadow: 8px 8px 0 var(--ink); }
+.sp-title small { display: block; margin-top: 18px; font-weight: 800; text-transform: uppercase; font-size: .95rem; background: var(--ink); color: var(--yellow); padding: 6px 14px; border-radius: 8px; display: inline-block; }
+.sp-signal { position: absolute; top: 28px; right: 34px; background: var(--ink); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 6px; box-shadow: 5px 5px 0 var(--red); }
+.sp-signal i { width: 26px; height: 26px; border-radius: 50%; background: #333; border: 2px solid #000; transition: .2s; }
+#splash[data-light=red] .r { background: #FF3B30; box-shadow: 0 0 18px #FF3B30; }
+#splash[data-light=yellow] .y { background: #FFD000; box-shadow: 0 0 18px #FFD000; }
+#splash[data-light=green] .g { background: #2EE66B; box-shadow: 0 0 18px #2EE66B; }
+.sp-road { position: absolute; left: 0; right: 0; bottom: 0; height: 170px; background: #2A2A2A; border-top: 4px solid var(--ink); display: flex; flex-direction: column; justify-content: space-evenly; background-image: repeating-linear-gradient(90deg, #FFD000 0 40px, transparent 40px 90px); background-size: 100% 4px; background-repeat: repeat-x; background-position: 0 50%; }
+.sp-lane { display: flex; gap: 26px; padding-left: 6%; align-items: flex-end; }
+.sp-lane svg { width: 70px; flex: none; animation: jam .35s ease-in-out infinite alternate; }
+.sp-lane svg.busv { width: 140px; }
+.sp-lane.l2 { padding-left: 14%; }
+.sp-lane svg:nth-child(2n) { animation-delay: .15s; }
+@keyframes jam { to { transform: translateX(6px) translateY(-2px); } }
+#splash.go .sp-lane svg { animation: zoomoff .9s cubic-bezier(.6, 0, .9, .4) forwards; }
+#splash.go .sp-lane svg:nth-child(2) { animation-delay: .06s; } #splash.go .sp-lane svg:nth-child(3) { animation-delay: .12s; } #splash.go .sp-lane svg:nth-child(4) { animation-delay: .18s; }
+@keyframes zoomoff { to { transform: translateX(120vw); } }
+.sp-skip { position: absolute; bottom: 190px; right: 30px; font-weight: 800; text-transform: uppercase; background: var(--white); border: var(--b); border-radius: 10px; padding: 6px 14px; box-shadow: var(--sh-sm); }
+
+/* Interactive skyline */
+.clicky { cursor: pointer; }
+.pano .layer { transition: transform .25s ease-out; }
+.pano .stars, .pano .moon-cut { opacity: 0; transition: opacity .6s; }
+.hero { --skyc: #9AD4F5; transition: background .6s; }
+.hero .pano rect:first-child { transition: fill .8s; }
+.hero.night { --skyc: #1C1F4A; --sunc: #F4F1DE; --win: #FFD54A; --vs: #E8DDF7; --tower: #3D4E8F; --hcwin: #FFD54A; }
+.hero.night .stars { opacity: 1; animation: twinkle 2.4s ease-in-out infinite alternate; }
+.hero.night .moon-cut { opacity: 1; }
+.hero.night .vs { filter: drop-shadow(0 0 10px rgba(255, 220, 120, .85)); }
+.hero.lit .vs { filter: drop-shadow(0 0 16px #FFD54A) drop-shadow(0 0 30px #FF9A1F); }
+.hero.lit { --vs: #FFF2B8; --win: #FFD000; }
+@keyframes twinkle { to { opacity: .45; } }
+.hero.raining { --skyc: #7E95A8; }
+.hero.night.raining { --skyc: #14172E; }
+.rainfx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.rainfx i { position: absolute; top: -20px; width: 2px; height: 18px; background: linear-gradient(transparent, #E8F4FF); transform: rotate(12deg); animation: drop-rain linear infinite; }
+@keyframes drop-rain { to { transform: translate(-40px, 320px) rotate(12deg); } }
+.pano .veh.bus { animation: autoride 16s linear infinite; animation-delay: -4s; }
+.pano .cowspot use { transform-box: fill-box; transform-origin: bottom center; animation: graze 3s ease-in-out infinite; }
+@keyframes graze { 50% { transform: rotate(-4deg); } }
+.hopping { animation: hop .45s cubic-bezier(.3, 1.8, .5, 1); transform-box: fill-box; }
+@keyframes hop { 40% { transform: translateY(-16px) rotate(-6deg); } }
+.pano .tree { transform-box: fill-box; transform-origin: bottom center; animation: sway 4s ease-in-out infinite; }
+.pano .tree:nth-child(2n) { animation-delay: -1.5s; }
+.hero-ctrl { position: absolute; right: 12px; top: 44px; display: flex; gap: 8px; }
+.hero-ctrl button { width: 40px; height: 40px; font-size: 1.1rem; background: var(--white); border: var(--b); border-radius: 10px; box-shadow: var(--sh-sm); transition: transform .12s, box-shadow .12s; }
+.hero-ctrl button:hover { transform: translate(-2px, -2px) rotate(-6deg); box-shadow: 5px 5px 0 var(--ink); }
+.hero-hint { position: absolute; right: 12px; top: 12px; background: var(--ink); color: var(--yellow); font-size: .72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; animation: nudge 2.4s ease-in-out infinite; }
+@keyframes nudge { 50% { transform: translateY(-3px); } }
+
+/* BMTC LED destination board */
+.led { display: flex; align-items: center; gap: 12px; background: #0D0D0D; border: var(--b); border-radius: var(--r); box-shadow: var(--sh); padding: 10px 14px; overflow: hidden; position: relative; }
+.led::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(rgba(0,0,0,.28) .8px, transparent 1px) 0 0 / 3px 3px; }
+.led .route { font-family: var(--head); color: #0D0D0D; background: #FF9A1F; padding: 2px 10px; border-radius: 6px; font-size: 1.1rem; flex: none; }
+.led .dest { color: #FF9A1F; font-weight: 800; font-size: 1rem; flex: none; text-shadow: 0 0 8px rgba(255, 154, 31, .8); border-right: 2px solid #333; padding-right: 12px; }
+.led-track { flex: 1; overflow: hidden; white-space: nowrap; mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.led-text { display: inline-block; animation: marquee 60s linear infinite; color: #FFB347; font-weight: 700; text-shadow: 0 0 6px rgba(255, 154, 31, .9); font-size: 1.05rem; }
+.led-text em { font-style: normal; color: #FFD27F; margin: 0 4px; }
+.led-text u { text-decoration: none; color: #9FE6B8; font-size: .85rem; }
+.led-text b { color: #E4002B; margin: 0 18px; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Auto Rush card + game */
+.gamecard { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: center; background: #E6D5F5 !important; }
+.gamecard p { font-size: .88rem; font-weight: 500; margin: 6px 0 12px; }
+.new { background: var(--red); color: #fff; font-family: 'Space Grotesk'; font-size: .62rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; animation: nudge 1.6s infinite; }
+.best { font-weight: 800; font-size: .82rem; }
+.mini-road { position: relative; height: 90px; background: #2A2A2A; border: var(--b); border-radius: 12px; overflow: hidden; background-image: repeating-linear-gradient(90deg, #FFD000 0 22px, transparent 22px 44px); background-size: 100% 4px; background-repeat: no-repeat; background-position: 0 60%; }
+.mini-road .stop { position: absolute; top: 10px; width: 12px; height: 12px; border-radius: 50%; background: var(--white); border: 2px solid var(--ink); }
+.mini-road .s1 { left: 8%; } .mini-road .s2 { left: 34%; } .mini-road .s3 { left: 60%; } .mini-road .s4 { left: 86%; background: var(--red); }
+.mini-auto { position: absolute; bottom: 8px; width: 54px; animation: miniride 4s cubic-bezier(.5, 0, .5, 1) infinite; }
+@keyframes miniride { 0% { left: -12%; } 45%, 55% { left: 40%; } 100% { left: 110%; } }
+.mini-cow { position: absolute; bottom: 10px; left: 52%; width: 44px; animation: cowpop 4s infinite; }
+@keyframes cowpop { 0%, 30%, 70%, 100% { transform: translateY(80px); } 40%, 60% { transform: translateY(0); } }
+.rush-road { position: relative; height: 120px; background: #2A2A2A; border: var(--b); border-radius: 14px; box-shadow: var(--sh-sm); background-image: repeating-linear-gradient(90deg, #FFD000 0 30px, transparent 30px 60px); background-size: 100% 4px; background-repeat: no-repeat; background-position: 0 72%; overflow: hidden; }
+.rstop { position: absolute; top: 8px; transform: translateX(-30%); color: #fff; font-size: .68rem; font-weight: 800; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 3px; white-space: nowrap; }
+.rstop i { width: 12px; height: 12px; border-radius: 50%; background: var(--yellow); border: 2px solid #fff; }
+.rstop:last-of-type i { background: var(--red); }
+.rauto { position: absolute; bottom: 10px; left: -1%; width: 62px; transition: left .6s cubic-bezier(.3, 1.4, .5, 1); }
+.rauto.zoom { animation: hop .45s cubic-bezier(.3, 1.8, .5, 1); }
+.rcow { position: absolute; bottom: 12px; width: 50px; animation: cowpop2 .4s cubic-bezier(.3, 1.8, .5, 1); }
+@keyframes cowpop2 { from { transform: translateY(60px); } }
+.rush-timer { height: 12px; background: var(--white); border: 2px solid var(--ink); border-radius: 6px; overflow: hidden; }
+.rush-timer i { display: block; height: 100%; width: 100%; background: repeating-linear-gradient(45deg, var(--red) 0 8px, #FF6A2B 8px 16px); }
+.rush-q { font-family: var(--head); font-size: 1.5rem; text-transform: uppercase; text-align: center; }
+.rush-q small { display: block; font-family: 'Space Grotesk'; font-size: .78rem; color: var(--muted); }
+.rush-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.ropt { background: var(--white); border: var(--b); border-radius: 14px; box-shadow: var(--sh-sm); padding: 14px 10px; display: flex; flex-direction: column; gap: 4px; transition: transform .12s, box-shadow .12s; }
+.ropt:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); background: #FFF6C7; }
+.ropt b { font-size: 1.3rem; } .ropt small { color: var(--green); font-weight: 700; }
+.ropt.right { background: #BDEBCF; } .ropt.wrong { background: #FFC2C9; animation: shake .3s 2; }
+.rush-status { text-align: center; font-weight: 800; font-size: .85rem; }
+
+/* Name in Kannada */
+.namecard { background: #FFE47A !important; display: flex; flex-direction: column; gap: 10px; }
+.namebar { display: flex; gap: 8px; }
+.namebar input { flex: 1; min-width: 0; border: var(--b); border-radius: 10px; padding: 9px 12px; background: var(--white); outline: none; font-weight: 600; }
+.name-out { min-height: 72px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.name-big { font-size: 2.6rem; font-weight: 800; line-height: 1.1; color: var(--red); -webkit-text-stroke: 1px var(--ink); animation: slam .45s cubic-bezier(.2, 1.6, .4, 1); }
+
+/* Filter coffee loader */
+.loading { gap: 12px; text-transform: none; }
+.loading .pour { width: 46px; flex: none; }
+.loading .tumbler { transform-box: fill-box; transform-origin: 0% 100%; animation: tilt 1.4s ease-in-out infinite; }
+.loading .stream { stroke-dasharray: 20; animation: pourflow .7s linear infinite; }
+.loading .steam-s { animation: steam2 1.6s ease-in-out infinite; }
+@keyframes tilt { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(-22deg) translateY(-4px); } }
+@keyframes pourflow { to { stroke-dashoffset: -40; } }
+@keyframes steam2 { 50% { transform: translateY(-4px); opacity: .2; } }
+.loading b { display: block; font-size: .78rem; text-transform: uppercase; }
+.loading .quip { font-size: .74rem; color: var(--muted); font-weight: 600; }
+
+/* Gulmohar petal burst */
+.petal-burst { position: fixed; width: 12px; height: 9px; border: 1.5px solid var(--ink); border-radius: 70% 0 70% 0; z-index: 300; pointer-events: none; animation: burst 1.5s cubic-bezier(.2, .7, .4, 1) forwards; }
+@keyframes burst { to { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; } }

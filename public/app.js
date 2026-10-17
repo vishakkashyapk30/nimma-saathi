@@ -23,7 +23,9 @@ function toast(msg) {
   const t = $('#toast'); t.textContent = msg; t.classList.add('show');
   clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2600);
 }
+window.toastFx = (m) => toast(m);
 function confetti() {
+  if (window.fx) return window.fx.petals();
   const colors = ['#6B2FA0', '#00A651', '#FFC72C', '#E0393E'];
   for (let i = 0; i < 36; i++) {
     const c = document.createElement('div'); c.className = 'confetti';
@@ -40,10 +42,18 @@ async function api(path, body) {
 }
 // page-level scrolling: bring the newest item into view in the browser window
 const follow = (el) => el && setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'end' }), 30);
+// Filter-coffee pour loader with rotating Bengaluru one-liners
+const QUIPS = ['Stuck at Silk Board, almost there', 'Swalpa adjust maadi', 'Pouring filter coffee', 'Asking the auto anna', 'Waiting for the 500D', 'Crossing Hebbal flyover'];
+const COFFEE_SVG = `<svg viewBox="0 0 64 56" class="pour"><g stroke="#111" stroke-width="2.5" stroke-linejoin="round">
+  <path class="tumbler" d="M30 4 h18 l-3 22 h-12 z" fill="#C9C9C9"/><path class="stream" d="M36 26 Q34 34 33 42" fill="none" stroke="#7A4A22" stroke-width="3" stroke-linecap="round"/>
+  <path d="M14 40 h38 q-2 12 -19 12 q-17 0 -19 -12 z" fill="#C9C9C9"/></g><ellipse cx="33" cy="41" rx="17" ry="3" fill="#7A4A22"/>
+  <g class="steam-s" stroke="#7A4A22" stroke-width="2" fill="none" opacity=".5"><path d="M20 36 q-3 -5 0 -10"/><path d="M48 36 q3 -5 0 -10"/></g></svg>`;
 function loader(parent, text) {
   const el = document.createElement('div'); el.className = 'loading';
-  el.innerHTML = `<div class="track"></div><span>${esc(text)}</span>`;
-  parent.appendChild(el); follow(el); return el;
+  el.innerHTML = `${COFFEE_SVG}<div><b>${esc(text)}</b><small class="quip">${QUIPS[0]}…</small></div>`;
+  parent.appendChild(el); follow(el);
+  let i = 0; const t = setInterval(() => { if (!el.isConnected) return clearInterval(t); el.querySelector('.quip').textContent = QUIPS[++i % QUIPS.length] + '…'; }, 1400);
+  return el;
 }
 
 // ===== Audio =====
@@ -490,6 +500,93 @@ function study(deck) {
   render();
 }
 
+// ===== Your name in Kannada =====
+$('#nameForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const name = $('#nameIn').value.trim(); if (!name) return;
+  const out = $('#nameOut'); out.innerHTML = '';
+  const l = loader(out, 'Writing your name');
+  try {
+    const d = await api('name', { name });
+    l.remove();
+    out.innerHTML = `<div class="name-big kn">${esc(d.kannada)}</div><div class="row" style="justify-content:flex-start"><button class="btn ghost" id="nmPlay">Listen</button><button class="btn ghost" id="nmCopy">Copy</button></div>`;
+    if (d.audio) { audioCache.set(d.kannada, d.audio); playB64(d.audio); }
+    out.querySelector('#nmPlay').onclick = () => say(d.kannada);
+    out.querySelector('#nmCopy').onclick = () => { navigator.clipboard?.writeText(`My name in Kannada: ${d.kannada} (via Nimma Saathi)`); toast('Copied'); };
+    const r = out.querySelector('.name-big').getBoundingClientRect(); window.fx?.petals(r.left + r.width / 2, r.top + r.height / 2, 20);
+  } catch (err) { l.remove(); out.innerHTML = `<span class="muted">${esc(err.message)}</span>`; }
+};
+
+// ===== Auto Rush: drive Majestic -> Vidhana Soudha by picking the right Kannada =====
+const RUSH_STOPS = ['Majestic', 'KR Circle', 'Cubbon Park', 'High Court', 'Vidhana Soudha'];
+const RUSH_GOAL = 8, RUSH_QUESTIONS = 12, RUSH_TIME = 12;
+function rushPool() {
+  const pool = Object.values(DATA.decks).flatMap((d) => d.phrases.map(([english, kannada, roman]) => ({ english, kannada, roman })));
+  DATA.numbers.forEach(([n, kannada, roman]) => pool.push({ english: `The number ${n}`, kannada, roman }));
+  return pool.filter((p) => p.english && p.kannada);
+}
+function renderRushBest() { const b = store.get('rushBest', 0); $('#rushBest').textContent = b ? `Best: ${b}/${RUSH_GOAL} stops` : ''; }
+function playRush() {
+  const pool = rushPool().sort(() => Math.random() - 0.5);
+  if (pool.length < 4) return toast('Phrasebook still loading, try again');
+  let q = 0, right = 0, timer;
+  openSheet(`<h2>Auto Rush <span class="kn muted">ಆಟೋ ರಶ್</span></h2>
+    <div class="rush-road" id="rRoad">
+      ${RUSH_STOPS.map((s, i) => `<span class="rstop" style="left:${(i / (RUSH_STOPS.length - 1)) * 92 + 2}%"><i></i>${s}</span>`).join('')}
+      <svg viewBox="0 0 64 48" class="rauto" id="rAuto"><use href="#auto-sym"/></svg>
+      <svg viewBox="0 0 64 48" class="rcow hidden" id="rCow"><use href="#cow-sym"/></svg>
+    </div>
+    <div class="rush-timer"><i id="rTimer"></i></div>
+    <div class="rush-q" id="rQ"></div>
+    <div class="rush-opts" id="rOpts"></div>
+    <div class="rush-status" id="rStatus"></div>`, () => next());
+  const sheet = $('#sheet');
+  const stillOpen = () => !sheet.classList.contains('hidden') && $('#rQ');
+  function move() { $('#rAuto').style.left = `${Math.min(right / RUSH_GOAL, 1) * 92 - 1}%`; }
+  function next() {
+    if (!stillOpen()) return;
+    if (right >= RUSH_GOAL || q >= RUSH_QUESTIONS) return finish();
+    const ans = pool[q % pool.length];
+    const opts = [ans, ...pool.filter((p) => p.kannada !== ans.kannada).sort(() => Math.random() - 0.5).slice(0, 2)].sort(() => Math.random() - 0.5);
+    q++;
+    $('#rQ').innerHTML = `<small>How do you say</small>${esc(ans.english)}`;
+    $('#rStatus').textContent = `Question ${q}/${RUSH_QUESTIONS} · ${right}/${RUSH_GOAL} stops`;
+    $('#rOpts').innerHTML = '';
+    opts.forEach((o) => {
+      const b = document.createElement('button'); b.className = 'ropt';
+      b.innerHTML = `<b class="kn">${esc(o.kannada)}</b><small>${esc(o.roman)}</small>`;
+      b.onclick = () => pick(o === ans, b, ans);
+      $('#rOpts').appendChild(b);
+    });
+    const bar = $('#rTimer'); bar.style.transition = 'none'; bar.style.width = '100%'; void bar.offsetWidth;
+    bar.style.transition = `width ${RUSH_TIME}s linear`; bar.style.width = '0%';
+    clearTimeout(timer); timer = setTimeout(() => pick(false, null, ans), RUSH_TIME * 1000);
+  }
+  function pick(ok, btn, ans) {
+    clearTimeout(timer); if (!stillOpen()) return;
+    $('#rOpts').querySelectorAll('button').forEach((b) => { b.disabled = true; if (b.querySelector('b').textContent === ans.kannada) b.classList.add('right'); });
+    if (ok) { right++; move(); try { window.fx?.sound.honk(); } catch {} $('#rAuto').classList.add('zoom'); setTimeout(() => $('#rAuto')?.classList.remove('zoom'), 500); }
+    else {
+      btn?.classList.add('wrong'); try { window.fx?.sound.moo(); } catch {}
+      const cow = $('#rCow'); cow.style.left = `${Math.min(right / RUSH_GOAL, 1) * 92 + 6}%`; cow.classList.remove('hidden');
+      setTimeout(() => cow?.classList.add('hidden'), 1100);
+    }
+    setTimeout(next, ok ? 700 : 1300);
+  }
+  function finish() {
+    const won = right >= RUSH_GOAL;
+    stats.xp += right * 5; bumpStreak(); store.set('stats', stats); renderStats();
+    if (right > store.get('rushBest', 0)) store.set('rushBest', right);
+    renderRushBest();
+    $('#rQ').innerHTML = won ? '<small>You made it</small>Welcome to Vidhana Soudha!' : `<small>Ride over</small>${right}/${RUSH_GOAL} stops. Swalpa adjust maadi, try again!`;
+    $('#rOpts').innerHTML = `<button class="btn" id="rAgain">Ride again</button><button class="btn ghost" id="rClose">Close</button>`;
+    $('#rAgain').onclick = playRush; $('#rClose').onclick = closeSheet;
+    $('#rStatus').textContent = `+${right * 5} XP`;
+    if (won) { try { window.fx?.sound.chime(); } catch {} confetti(); }
+  }
+}
+$('#playRush').onclick = playRush;
+
 // ===== Profile / onboarding =====
 $('#talkClear').onclick = () => { talkFeed.querySelectorAll('.turn, .loading').forEach((n) => n.remove()); };
 function applyProfile() {
@@ -526,6 +623,9 @@ $('#profileBtn').onclick = () => openProfile(false);
   ['slang', 'numbers'].forEach((k) => { if (!Array.isArray(DATA[k])) DATA[k] = []; });
   if (!Array.isArray(trip.memories)) trip.memories = [];
   applyProfile(); renderDecks(); renderScenes();
+  const ledItems = [...Object.values(DATA.decks).flatMap((d) => d.phrases.slice(0, 3)), ...DATA.slang.slice(0, 6).map(([w, kn, r, m]) => [m.split('.')[0], kn, r])];
+  window.fx?.setLed(ledItems.sort(() => Math.random() - 0.5));
+  renderRushBest();
   $('#numStrip').innerHTML = DATA.numbers.map(([n, kn, r]) => `<button data-kn="${esc(kn)}"><b>${esc(kn)}</b>${n} · ${esc(r)}</button>`).join('');
   $('#numStrip').querySelectorAll('button').forEach((b) => b.onclick = () => say(b.dataset.kn));
   if (first) openProfile(true);
