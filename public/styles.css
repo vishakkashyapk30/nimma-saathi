@@ -53,7 +53,6 @@ input, select, textarea { font: inherit; color: inherit; }
 .quick.vertical { flex-direction: column; overflow: visible; padding: 4px 0 0; }
 .quick.vertical button { text-align: left; border-radius: 10px; white-space: normal; }
 .tipcard { background: var(--sky) !important; font-size: .86rem; font-weight: 500; }
-.tipcard b:first-child { font-family: var(--head); font-weight: 400; text-transform: uppercase; display: block; margin-bottom: 4px; }
 .tools-legend ul { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: .84rem; font-weight: 500; margin-top: 8px; }
 .tools-legend li::before { content: '▸ '; color: var(--red); }
 .recent { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-top: 10px; }
@@ -333,6 +332,27 @@ nav#tabs button.active i { transform: rotate(-10deg) scale(1.2); }
 .hint { margin-right: 0; }
 
 /* Smaller laptops / tablets */
+/* ===== Page-level scrolling (browser scrollbar) ===== */
+body { overflow-x: hidden; overflow-y: auto; }
+#app { height: auto; min-height: 100vh; align-items: start; }
+#side { position: sticky; top: 18px; height: calc(100vh - 36px); }
+main { overflow: visible; min-height: calc(100vh - 36px); }
+.tab { position: relative; inset: auto; opacity: 1; transform: none; pointer-events: auto; }
+.tab:not(.active) { display: none !important; }
+.tab.active { animation: tabIn .3s cubic-bezier(.2, .9, .3, 1.2); }
+@keyframes tabIn { from { opacity: 0; transform: translateY(12px); } }
+.scroll, .feed, .side-pane { overflow: visible; }
+.scroll { flex: none; }
+.scroll > *, .pane > *, .home-grid > * { flex-shrink: 0; min-height: min-content; }
+.home-grid { grid-auto-rows: max-content; }
+.hero { min-height: 220px; }
+.pane > .feed { min-height: calc(100vh - 190px); }
+.feed > * { scroll-margin-bottom: 96px; }
+.pane > .typebar { position: sticky; bottom: 18px; z-index: 4; }
+.side-pane { position: sticky; top: 18px; align-self: start; }
+.scene { position: relative; inset: auto; }
+.study { position: absolute; inset: 0; min-height: calc(100vh - 36px); }
+
 @media (max-width: 1100px) {
   #app { grid-template-columns: 210px 1fr; gap: 16px; }
   .split { grid-template-columns: minmax(0, 1fr) 290px; }

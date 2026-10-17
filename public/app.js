@@ -38,10 +38,12 @@ async function api(path, body) {
   if (!r.ok || d.error) throw new Error(d.error || 'Request failed');
   return d;
 }
+// page-level scrolling: bring the newest item into view in the browser window
+const follow = (el) => el && setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'end' }), 30);
 function loader(parent, text) {
   const el = document.createElement('div'); el.className = 'loading';
   el.innerHTML = `<div class="track"></div><span>${esc(text)}</span>`;
-  parent.appendChild(el); parent.scrollTop = parent.scrollHeight; return el;
+  parent.appendChild(el); follow(el); return el;
 }
 
 // ===== Audio =====
@@ -276,7 +278,7 @@ async function talk(direction, payload) {
       el.className = 'turn in';
       el.innerHTML = `<div class="who">Local said</div><div class="kannada">${esc(d.heard)}</div><div class="roman">${esc(d.roman)}</div><div class="meaning">${esc(d.meaning)}</div>`;
     }
-    talkFeed.appendChild(el); talkFeed.scrollTop = talkFeed.scrollHeight;
+    talkFeed.appendChild(el); follow(el);
   } catch (e) { l.remove(); toast('Oops: ' + e.message); }
 }
 $('#micYou').onclick = () => toggleRecord($('#micYou'), (a) => talk('out', a), 'Speak in ' + langShort(profile.lang));
@@ -292,7 +294,7 @@ function addMsg(role, html) {
   const el = document.createElement('div'); el.className = 'msg ' + role;
   el.innerHTML = `${role === 'bot' ? '<div class="avatar"></div>' : ''}<div class="bubble"></div>`;
   el.querySelector('.bubble').innerHTML = html;
-  chatFeed.appendChild(el); chatFeed.scrollTop = chatFeed.scrollHeight; return el;
+  chatFeed.appendChild(el); follow(el); return el;
 }
 const TOOL_LABEL = { translate_to_kannada: 'Translating', situation_playbook: 'Checking playbook', save_phrase: 'Saving to deck', remember: 'Remembering' };
 async function ask(message) {
@@ -311,7 +313,7 @@ async function ask(message) {
     if (d.memories?.length) { trip.memories = [...new Set([...trip.memories, ...d.memories])].slice(-20); store.set('trip', trip); renderHome(); }
     const note = [d.saved?.length && `${d.saved.length} phrase(s) saved to Learn`, d.memories?.length && 'trip memory updated'].filter(Boolean).join(' · ');
     if (note) toast(note);
-    chatFeed.scrollTop = chatFeed.scrollHeight;
+    follow(chatFeed.lastElementChild);
   } catch (e) { l.remove(); addMsg('bot', 'Sorry, something went wrong: ' + esc(e.message)); }
 }
 $('#chatForm').onsubmit = (e) => { e.preventDefault(); const t = $('#chatInput').value.trim(); if (!t) return; $('#chatInput').value = ''; ask(t); };
@@ -384,7 +386,7 @@ async function sceneStep(reply) {
       feed.appendChild(end); end.querySelector('#again').onclick = () => startScene(scene.id);
       confetti(); bumpStreak(); store.set('stats', stats);
     }
-    feed.scrollTop = feed.scrollHeight;
+    follow(feed.lastElementChild);
   } catch (e) { l.remove(); toast(e.message); }
 }
 function startScene(id) {
