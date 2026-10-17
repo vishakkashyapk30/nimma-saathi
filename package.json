@@ -1,12 +1,12 @@
-{
-  "name": "namma-saathi",
+﻿{
+  "name": "nimma-saathi",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Agentic Bengaluru travel buddy: talk to locals in Kannada and learn at your own pace. Powered by Sarvam AI.",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node dev-server.js",
+    "dev": "node dev-server.js"
   },
   "engines": { "node": ">=18" }
 }

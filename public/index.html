@@ -3,164 +3,269 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Namma Saathi · Your Bengaluru buddy</title>
-  <meta name="theme-color" content="#ffcc00" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛺</text></svg>" />
+  <title>Nimma Saathi · Your Bengaluru companion</title>
+  <meta name="description" content="Talk to locals in Kannada, read signs, check auto fares and learn Kannada at your own pace. Powered by Sarvam AI." />
+  <meta name="theme-color" content="#FFD000" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@500;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Baloo+Tamma+2:wght@500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <!-- ===== Bengaluru backdrop ===== -->
-  <div id="sky"><div id="petals"></div></div>
-  <svg id="skyline" viewBox="0 0 1200 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-    <defs>
-      <linearGradient id="bld" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5b3f8c"/><stop offset="1" stop-color="#3a2462"/></linearGradient>
-    </defs>
-    <!-- distant towers (UB City, WTC vibes) -->
-    <g fill="#7b62a8" opacity=".55">
-      <rect x="20" y="90" width="40" height="170"/><rect x="70" y="120" width="30" height="140"/>
-      <rect x="840" y="70" width="34" height="190"/><polygon points="840,70 857,40 874,70"/>
-      <rect x="885" y="110" width="44" height="150"/><rect x="1090" y="85" width="40" height="175"/>
-      <rect x="1140" y="125" width="50" height="135"/><rect x="250" y="130" width="36" height="130"/>
-    </g>
-    <!-- Vidhana Soudha -->
-    <g fill="url(#bld)" transform="translate(430,0)">
-      <rect x="0" y="150" width="340" height="110"/>
-      <rect x="110" y="120" width="120" height="30"/>
-      <path d="M130 120 Q170 60 210 120 Z"/>
-      <rect x="166" y="52" width="8" height="16"/><circle cx="170" cy="50" r="5"/>
-      <path d="M20 150 Q40 128 60 150 Z"/><path d="M280 150 Q300 128 320 150 Z"/>
-      <g fill="#ffd76a" opacity=".55">
-        <rect x="120" y="165" width="8" height="70"/><rect x="140" y="165" width="8" height="70"/><rect x="160" y="165" width="8" height="70"/>
-        <rect x="180" y="165" width="8" height="70"/><rect x="200" y="165" width="8" height="70"/><rect x="220" y="165" width="8" height="70"/>
-      </g>
-      <polygon points="100,150 240,150 170,132" fill="#4a2f78"/>
-    </g>
-    <!-- Cubbon park trees -->
-    <g fill="#2f7d4f">
-      <circle cx="140" cy="215" r="34"/><circle cx="185" cy="225" r="28"/><circle cx="360" cy="220" r="30"/>
-      <circle cx="800" cy="218" r="32"/><circle cx="990" cy="222" r="30"/><circle cx="1040" cy="212" r="26"/>
-    </g>
-    <g fill="#e2463b"><circle cx="128" cy="200" r="4"/><circle cx="150" cy="195" r="3"/><circle cx="370" cy="205" r="4"/><circle cx="1000" cy="205" r="4"/><circle cx="812" cy="200" r="3"/></g>
-    <!-- elevated metro track -->
-    <rect x="0" y="182" width="1200" height="7" fill="#4b3570"/>
-    <g fill="#4b3570"><rect x="100" y="189" width="10" height="71"/><rect x="420" y="189" width="10" height="71"/><rect x="740" y="189" width="10" height="71"/><rect x="1060" y="189" width="10" height="71"/></g>
-    <g id="metro">
-      <rect x="0" y="160" width="220" height="22" rx="8" fill="#8e44ad"/>
-      <rect x="0" y="176" width="220" height="4" fill="#f1c40f"/>
-      <g fill="#e8dcff"><rect x="14" y="165" width="22" height="8" rx="2"/><rect x="48" y="165" width="22" height="8" rx="2"/><rect x="82" y="165" width="22" height="8" rx="2"/><rect x="116" y="165" width="22" height="8" rx="2"/><rect x="150" y="165" width="22" height="8" rx="2"/><rect x="184" y="165" width="22" height="8" rx="2"/></g>
-    </g>
-    <!-- road -->
-    <rect x="0" y="246" width="1200" height="14" fill="#2b2b33"/>
-    <g fill="#fff" opacity=".7" class="lanes"><rect x="0" y="252" width="40" height="2"/><rect x="80" y="252" width="40" height="2"/><rect x="160" y="252" width="40" height="2"/><rect x="240" y="252" width="40" height="2"/><rect x="320" y="252" width="40" height="2"/><rect x="400" y="252" width="40" height="2"/><rect x="480" y="252" width="40" height="2"/><rect x="560" y="252" width="40" height="2"/><rect x="640" y="252" width="40" height="2"/><rect x="720" y="252" width="40" height="2"/><rect x="800" y="252" width="40" height="2"/><rect x="880" y="252" width="40" height="2"/><rect x="960" y="252" width="40" height="2"/><rect x="1040" y="252" width="40" height="2"/><rect x="1120" y="252" width="40" height="2"/></g>
-    <g id="road-auto"><use href="#auto-sym" x="0" y="214" width="48" height="36"/></g>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="auto-sym" viewBox="0 0 64 48">
-      <path d="M8 34 V18 Q8 6 24 6 H44 Q56 6 58 20 L60 34 Z" fill="#1e9e57"/>
-      <path d="M10 18 Q10 8 24 8 H44 Q54 8 56 18 Z" fill="#ffcc00"/>
-      <rect x="36" y="18" width="16" height="12" rx="2" fill="#bfe9ff" opacity=".8"/>
-      <rect x="6" y="30" width="56" height="5" rx="2" fill="#111"/>
-      <circle cx="16" cy="38" r="6" fill="#222"/><circle cx="16" cy="38" r="2.5" fill="#aaa"/>
-      <circle cx="52" cy="38" r="6" fill="#222"/><circle cx="52" cy="38" r="2.5" fill="#aaa"/>
-      <circle cx="60" cy="26" r="2" fill="#fff6a0"/>
+      <path d="M8 34 V18 Q8 6 24 6 H44 Q56 6 58 20 L60 34 Z" fill="#1E9E57" stroke="#111" stroke-width="2.5"/>
+      <path d="M10 18 Q10 8 24 8 H44 Q54 8 56 18 Z" fill="#FFD000" stroke="#111" stroke-width="2.5"/>
+      <rect x="36" y="18" width="16" height="12" rx="2" fill="#dff3ff" stroke="#111" stroke-width="2"/>
+      <rect x="6" y="30" width="56" height="5" rx="2" fill="#1B1530"/>
+      <circle cx="16" cy="38" r="6" fill="#1B1530"/><circle cx="16" cy="38" r="2.5" fill="#bbb"/>
+      <circle cx="52" cy="38" r="6" fill="#1B1530"/><circle cx="52" cy="38" r="2.5" fill="#bbb"/>
+    </symbol>
+    <symbol id="train-sym" viewBox="0 0 120 20">
+      <rect x="1" y="2" width="118" height="14" rx="6" fill="#7B3FA0" stroke="#111" stroke-width="2"/>
+      <rect x="2" y="12" width="116" height="2" fill="#FFD000"/>
+      <g fill="#fff" opacity=".9"><rect x="10" y="5" width="12" height="5" rx="1.5"/><rect x="28" y="5" width="12" height="5" rx="1.5"/><rect x="46" y="5" width="12" height="5" rx="1.5"/><rect x="64" y="5" width="12" height="5" rx="1.5"/><rect x="82" y="5" width="12" height="5" rx="1.5"/><rect x="100" y="5" width="12" height="5" rx="1.5"/></g>
+    </symbol>
+    <!-- Vidhana Soudha -->
+    <symbol id="vs-sym" viewBox="0 0 200 124">
+      <g stroke="#111" stroke-width="3" stroke-linejoin="round">
+        <rect x="8" y="62" width="184" height="58" fill="#F6E7C1"/>
+        <path d="M14 62 Q28 42 42 62 Z" fill="#F6E7C1"/><path d="M158 62 Q172 42 186 62 Z" fill="#F6E7C1"/>
+        <rect x="58" y="44" width="84" height="18" fill="#F6E7C1"/>
+        <path d="M70 44 Q100 -2 130 44 Z" fill="#F6E7C1"/>
+        <polygon points="56,66 144,66 100,52" fill="#FFD000"/>
+      </g>
+      <line x1="100" y1="22" x2="100" y2="6" stroke="#111" stroke-width="3"/><circle cx="100" cy="5" r="3" fill="#E4002B" stroke="#111" stroke-width="2"/>
+      <g fill="#111"><rect x="66" y="70" width="4" height="40"/><rect x="80" y="70" width="4" height="40"/><rect x="116" y="70" width="4" height="40"/><rect x="130" y="70" width="4" height="40"/><rect x="93" y="88" width="14" height="32"/>
+        <rect x="20" y="76" width="10" height="12"/><rect x="38" y="76" width="10" height="12"/><rect x="152" y="76" width="10" height="12"/><rect x="170" y="76" width="10" height="12"/>
+        <rect x="20" y="96" width="10" height="12"/><rect x="38" y="96" width="10" height="12"/><rect x="152" y="96" width="10" height="12"/><rect x="170" y="96" width="10" height="12"/></g>
+    </symbol>
+    <!-- High Court, Attara Kacheri -->
+    <symbol id="hc-sym" viewBox="0 0 200 110">
+      <g stroke="#111" stroke-width="3" stroke-linejoin="round">
+        <polygon points="4,52 100,30 196,52" fill="#9E2A20"/>
+        <rect x="4" y="52" width="192" height="54" fill="#C8372D"/>
+        <polygon points="62,56 138,56 100,36" fill="#F6E7C1"/>
+      </g>
+      <g fill="#F6E7C1" stroke="#111" stroke-width="2"><rect x="68" y="58" width="7" height="46"/><rect x="84" y="58" width="7" height="46"/><rect x="109" y="58" width="7" height="46"/><rect x="125" y="58" width="7" height="46"/>
+        <rect x="14" y="64" width="9" height="14"/><rect x="30" y="64" width="9" height="14"/><rect x="46" y="64" width="9" height="14"/><rect x="145" y="64" width="9" height="14"/><rect x="161" y="64" width="9" height="14"/><rect x="177" y="64" width="9" height="14"/>
+        <rect x="14" y="86" width="9" height="14"/><rect x="30" y="86" width="9" height="14"/><rect x="46" y="86" width="9" height="14"/><rect x="145" y="86" width="9" height="14"/><rect x="161" y="86" width="9" height="14"/><rect x="177" y="86" width="9" height="14"/></g>
+    </symbol>
+    <!-- Cubbon Park tree -->
+    <symbol id="tree-sym" viewBox="0 0 60 70">
+      <rect x="26" y="40" width="8" height="28" fill="#6B3E1F" stroke="#111" stroke-width="3"/>
+      <circle cx="30" cy="28" r="24" fill="#1E9E57" stroke="#111" stroke-width="3"/>
+      <circle cx="20" cy="20" r="3" fill="#E4002B"/><circle cx="38" cy="16" r="3" fill="#E4002B"/><circle cx="34" cy="34" r="3" fill="#FFD000"/>
+    </symbol>
+    <!-- UB City tower -->
+    <symbol id="ub-sym" viewBox="0 0 40 160">
+      <polygon points="6,30 20,4 34,30" fill="#9AD4F5" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="6" y="30" width="28" height="128" fill="#9AD4F5" stroke="#111" stroke-width="3"/>
+      <g fill="#111"><rect x="12" y="40" width="5" height="8"/><rect x="23" y="40" width="5" height="8"/><rect x="12" y="58" width="5" height="8"/><rect x="23" y="58" width="5" height="8"/><rect x="12" y="76" width="5" height="8"/><rect x="23" y="76" width="5" height="8"/><rect x="12" y="94" width="5" height="8"/><rect x="23" y="94" width="5" height="8"/><rect x="12" y="112" width="5" height="8"/><rect x="23" y="112" width="5" height="8"/></g>
     </symbol>
   </svg>
 
-  <!-- ===== App ===== -->
+  <div id="bg"></div>
+
   <div id="app">
-    <header>
-      <div class="brand">
-        <span class="namaskara">ನಮಸ್ಕಾರ</span>
-        <h1>Namma <b>Saathi</b></h1>
-        <small>your Bengaluru buddy · powered by Sarvam AI</small>
+    <!-- Sidebar -->
+    <aside id="side">
+      <div class="logo"><span class="stamp"><svg viewBox="0 0 64 48"><use href="#auto-sym"/></svg></span><div><h1>Nimma <b>Saathi</b></h1><small><span class="kn">ನಿಮ್ಮ ಸಾಥಿ</span> · Bengaluru companion</small></div></div>
+      <nav id="tabs">
+        <button data-tab="home" class="active"><i>🏛️</i><span>Home</span></button>
+        <button data-tab="talk"><i>🗣️</i><span>Talk to locals</span></button>
+        <button data-tab="agent"><i>🛺</i><span>Ask Saathi</span></button>
+        <button data-tab="practice"><i>🎭</i><span>Role-play</span></button>
+        <button data-tab="learn"><i>🌳</i><span>Learn Kannada</span></button>
+      </nav>
+      <div class="side-mini">
+        <div class="mini-stats"><div><b id="sbStreak">0</b><small>streak</small></div><div><b id="sbXp">0</b><small>XP</small></div><div><b id="sbSaved">0</b><small>saved</small></div></div>
+        <button id="profileBtn" class="pill wide">🌐 <span id="langLabel">English</span> · <span id="nameLabel">Profile</span></button>
+        <small class="powered">Powered by Sarvam AI · Saaras · Bulbul · Mayura · Sarvam-105B · Vision</small>
       </div>
-      <button id="profileBtn" class="chip" title="Change language">🌐 <span id="langLabel">English</span></button>
-    </header>
+    </aside>
 
     <main>
-      <!-- TALK -->
-      <section id="tab-talk" class="tab active">
-        <div id="talkFeed" class="feed">
-          <div class="empty" id="talkEmpty">
-            <div class="coffee"><span class="steam s1"></span><span class="steam s2"></span><span class="steam s3"></span>☕</div>
-            <h2>Maathaadu <span class="kn">ಮಾತಾಡು</span></h2>
-            <p>Speak your language → Saathi says it in Kannada.<br />Local replies → you understand.</p>
+      <!-- HOME -->
+      <section id="tab-home" class="tab active">
+        <div class="scroll home-grid">
+          <div class="hero span-3">
+            <svg class="pano" viewBox="0 0 1000 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+              <rect width="1000" height="260" fill="#9AD4F5"/>
+              <circle cx="900" cy="56" r="30" fill="#FFD000" stroke="#111" stroke-width="3" class="sun"/>
+              <g class="cloud"><rect x="0" y="34" width="80" height="22" rx="11" fill="#fff" stroke="#111" stroke-width="3"/></g>
+              <g class="cloud c2"><rect x="0" y="70" width="60" height="18" rx="9" fill="#fff" stroke="#111" stroke-width="3"/></g>
+              <g class="cloud c3"><rect x="0" y="22" width="50" height="16" rx="8" fill="#fff" stroke="#111" stroke-width="3"/></g>
+              <rect x="0" y="110" width="1000" height="7" fill="#7B3FA0" stroke="#111" stroke-width="2"/>
+              <use href="#train-sym" class="train" x="0" y="92" width="170" height="22"/>
+              <use href="#ub-sym" x="760" y="50" width="46" height="185"/>
+              <use href="#ub-sym" x="812" y="96" width="36" height="140"/>
+              <use href="#ub-sym" x="930" y="120" width="30" height="115"/>
+              <use href="#hc-sym" x="20" y="100" width="250" height="138"/>
+              <use href="#vs-sym" x="330" y="56" width="340" height="211"/>
+              <rect x="0" y="234" width="1000" height="26" fill="#2A2A2A" stroke="#111" stroke-width="3"/>
+              <g class="lanes" fill="#FFD000"><rect x="0" y="245" width="34" height="4"/><rect x="70" y="245" width="34" height="4"/><rect x="140" y="245" width="34" height="4"/><rect x="210" y="245" width="34" height="4"/><rect x="280" y="245" width="34" height="4"/><rect x="350" y="245" width="34" height="4"/><rect x="420" y="245" width="34" height="4"/><rect x="490" y="245" width="34" height="4"/><rect x="560" y="245" width="34" height="4"/><rect x="630" y="245" width="34" height="4"/><rect x="700" y="245" width="34" height="4"/><rect x="770" y="245" width="34" height="4"/><rect x="840" y="245" width="34" height="4"/><rect x="910" y="245" width="34" height="4"/><rect x="980" y="245" width="34" height="4"/><rect x="1050" y="245" width="34" height="4"/></g>
+              <use href="#tree-sym" x="-4" y="172" width="54" height="64"/><use href="#tree-sym" x="270" y="176" width="50" height="60"/>
+              <use href="#tree-sym" x="676" y="170" width="56" height="66"/><use href="#tree-sym" x="716" y="186" width="42" height="50"/>
+              <use href="#tree-sym" x="858" y="172" width="54" height="64"/><use href="#tree-sym" x="955" y="180" width="48" height="56"/>
+              <use href="#auto-sym" class="auto" x="0" y="210" width="50" height="38"/>
+              <use href="#auto-sym" class="auto a2" x="0" y="210" width="50" height="38"/>
+            </svg>
+            <div class="hero-text">
+              <small class="eyebrow kn">ನಮಸ್ಕಾರ</small>
+              <h2 id="helloName">Namaskara!</h2>
+              <p id="helloSub">Where are we headed today?</p>
+            </div>
+            <div class="hero-tags"><span>Vidhana Soudha</span><span>Attara Kacheri</span><span>Cubbon Park</span><span>Namma Metro</span></div>
+          </div>
+
+          <div class="tools span-2">
+            <button class="tool t-purple" data-open="reader"><i class="ti">📷</i><b>Read a sign</b><small>Photo of a board or menu, translated by Sarvam Vision</small></button>
+            <button class="tool t-yellow" data-open="fare"><i class="ti">🛺</i><b>Fare check</b><small>Is the auto fare fair? Get counter-offer lines</small></button>
+            <button class="tool t-green" data-go="practice"><i class="ti">🎭</i><b>Role-play</b><small>Rehearse with an auto driver, waiter or shopkeeper</small></button>
+            <button class="tool t-red" data-open="sos"><i class="ti">🚨</i><b>Emergency</b><small>112 and phrases to show for help</small></button>
+          </div>
+          <div class="card slang" id="slangCard"></div>
+
+          <div class="card span-2" id="recentCard">
+            <h3 class="label">Your phrasebook <button class="link" data-go="learn">Practise all</button></h3>
+            <div id="recentList" class="recent"></div>
+          </div>
+          <div class="card" id="tripBox">
+            <h3 class="label">My trip <button class="link" id="tripEdit">Edit</button></h3>
+            <div id="tripCard"></div>
           </div>
         </div>
-        <div class="quick" id="talkQuick"></div>
-        <div class="talk-controls">
-          <button class="mic you" id="micYou"><span class="pulse"></span>🎤<b>I speak</b><small id="youLang">English</small></button>
-          <button class="mic local" id="micLocal"><span class="pulse"></span>🎤<b>Local speaks</b><small>ಕನ್ನಡ</small></button>
+      </section>
+
+      <!-- TALK -->
+      <section id="tab-talk" class="tab split">
+        <div class="pane">
+          <div class="pane-head"><h2 class="title">Talk to locals</h2><span class="kn">ಮಾತಾಡು</span><button class="link" id="talkClear">Clear</button></div>
+          <div id="talkFeed" class="feed">
+            <div class="empty" id="talkEmpty">
+              <div class="auto-big"><svg viewBox="0 0 64 48"><use href="#auto-sym"/></svg></div>
+              <h2>Your conversation appears here</h2>
+              <p>Press <b>I speak</b> and talk in your language. Saathi says it aloud in Kannada and shows the text. Then press <b>Local speaks</b> and hand over your laptop or phone.</p>
+            </div>
+          </div>
+          <form class="typebar" id="talkForm"><input id="talkInput" placeholder="Or type what you want to say and press Enter" autocomplete="off" /><button aria-label="Send">→</button></form>
         </div>
-        <form class="typebar" id="talkForm"><input id="talkInput" placeholder="…or type what you want to say" autocomplete="off" /><button>➤</button></form>
+        <div class="pane side-pane">
+          <div class="talk-controls">
+            <button class="mic you" id="micYou"><span class="mic-ic"></span><b>I speak</b><small id="youLang">English</small></button>
+            <button class="mic local" id="micLocal"><span class="mic-ic"></span><b>Local speaks</b><small class="kn">ಕನ್ನಡ</small></button>
+          </div>
+          <div class="card">
+            <h3 class="label">One-tap phrases</h3>
+            <div class="quick vertical" id="talkQuick"></div>
+          </div>
+          <div class="card tipcard"><b>Tip</b><p>Use <b>Show local</b> on any line to display it full screen, so the driver or shopkeeper can read it.</p></div>
+        </div>
       </section>
 
       <!-- AGENT -->
-      <section id="tab-agent" class="tab">
-        <div id="chatFeed" class="feed">
-          <div class="empty" id="chatEmpty">
-            <div class="big-emoji">🛺</div>
-            <h2>Ask Saathi</h2>
-            <p>Describe your situation. Saathi plans it, gives you the exact Kannada lines with audio, and saves the best ones to your Learn deck.</p>
+      <section id="tab-agent" class="tab split">
+        <div class="pane">
+          <div class="pane-head"><h2 class="title">Ask Saathi</h2><span class="muted">Agent with tools · Sarvam-105B</span></div>
+          <div id="chatFeed" class="feed">
+            <div class="empty" id="chatEmpty">
+              <div class="landmark"><svg viewBox="0 0 200 124"><use href="#vs-sym"/></svg></div>
+              <h2>Describe your situation</h2>
+              <p>Saathi plans, uses its tools, gives you the exact Kannada lines with audio, saves them to your phrasebook and remembers your trip.</p>
+            </div>
+          </div>
+          <form class="typebar" id="chatForm">
+            <button type="button" class="mini-mic" id="chatMic" aria-label="Speak"><span class="mic-ic"></span></button>
+            <input id="chatInput" placeholder="Ask anything about getting around Bengaluru" autocomplete="off" />
+            <button aria-label="Send">→</button>
+          </form>
+        </div>
+        <div class="pane side-pane">
+          <div class="card">
+            <h3 class="label">Try asking</h3>
+            <div class="quick vertical" id="agentQuick"></div>
+          </div>
+          <div class="card">
+            <h3 class="label">Saathi knows</h3>
+            <div id="agentFacts"></div>
+          </div>
+          <div class="card tools-legend">
+            <h3 class="label">Saathi's tools</h3>
+            <ul><li><b>Translate</b> any line to Kannada</li><li><b>Playbook</b> for autos, darshinis, metro, emergencies</li><li><b>Save</b> phrases to your deck</li><li><b>Remember</b> trip facts</li></ul>
           </div>
         </div>
-        <div class="quick" id="agentQuick"></div>
-        <form class="typebar" id="chatForm">
-          <button type="button" class="mini-mic" id="chatMic">🎤</button>
-          <input id="chatInput" placeholder="Ask Saathi anything about Bengaluru…" autocomplete="off" />
-          <button>➤</button>
-        </form>
+      </section>
+
+      <!-- PRACTICE -->
+      <section id="tab-practice" class="tab">
+        <div class="scroll" id="scenePick">
+          <div class="banner b-red"><svg viewBox="0 0 200 110"><use href="#hc-sym"/></svg><div><h2 class="title">Role-play</h2><span class="kn">ಅಭ್ಯಾಸ</span><p>Rehearse real Bengaluru moments. Saathi plays the local in Kannada, you reply by voice or text, and you get a score and a hint for every line.</p></div></div>
+          <div class="scenes" id="scenes"></div>
+          <div class="howto">
+            <div class="card"><span class="step">1</span><b>Pick a scene</b><p>The local opens in Kannada with audio, plus a romanized line and its meaning.</p></div>
+            <div class="card"><span class="step">2</span><b>Reply your way</b><p>Speak or type in Kannada. Stuck? Use the hint, or answer in your own language.</p></div>
+            <div class="card"><span class="step">3</span><b>Get scored</b><p>Each line gets a score out of 10 and a tip. Finish the goal to complete the scene.</p></div>
+          </div>
+        </div>
+        <div id="scene" class="hidden split scene">
+          <div class="pane">
+            <div class="pane-head"><button class="link" id="sceneBack">← All scenes</button><h2 class="title" id="sceneTitle"></h2></div>
+            <div class="feed" id="sceneFeed"></div>
+            <form class="typebar" id="sceneForm">
+              <button type="button" class="mini-mic" id="sceneMic" aria-label="Speak"><span class="mic-ic"></span></button>
+              <input id="sceneInput" placeholder="Reply in Kannada, or in your language if stuck" autocomplete="off" />
+              <button aria-label="Send">→</button>
+            </form>
+          </div>
+          <div class="pane side-pane">
+            <div class="card score-card"><small>Average score</small><span class="badge" id="sceneScore">–</span></div>
+            <div class="card"><h3 class="label">Your goal</h3><p id="sceneGoal" class="goal"></p></div>
+            <div class="hint hidden" id="hintBox"></div>
+          </div>
+        </div>
       </section>
 
       <!-- LEARN -->
       <section id="tab-learn" class="tab">
-        <div class="stats">
-          <div><span id="stStreak">0</span><small>🔥 day streak</small></div>
-          <div><span id="stXp">0</span><small>⭐ XP</small></div>
-          <div><span id="stLearned">0</span><small>🌼 learned</small></div>
+        <div class="scroll">
+          <div class="learn-top">
+            <div class="banner b-green"><div class="trees"><svg viewBox="0 0 60 70"><use href="#tree-sym"/></svg><svg viewBox="0 0 60 70"><use href="#tree-sym"/></svg><svg viewBox="0 0 60 70"><use href="#tree-sym"/></svg></div><div><h2 class="title">Learn Kannada</h2><span class="kn">ಕಲಿಬೇಕು</span><p>At your own pace. The weakest cards come first. Phrases you used in real conversations are collected in My phrases.</p></div></div>
+            <div class="stats">
+              <div><span id="stStreak">0</span><small>day streak</small></div>
+              <div><span id="stXp">0</span><small>XP</small></div>
+              <div><span id="stLearned">0</span><small>learned</small></div>
+            </div>
+          </div>
+          <div id="decks" class="decks"></div>
+          <div class="card">
+            <h3 class="label">Kannada numbers <span class="muted" style="font-family:'Space Grotesk';text-transform:none;font-size:.8rem;margin-left:8px">click to hear · key for fares and bargaining</span></h3>
+            <div class="nums big-nums" id="numStrip"></div>
+          </div>
         </div>
-        <h2 class="sec">Kalibeku <span class="kn">ಕಲಿಬೇಕು</span> <small>learn at your own pace</small></h2>
-        <div id="decks" class="decks"></div>
         <div id="study" class="study hidden"></div>
       </section>
     </main>
-
-    <nav id="tabs">
-      <button data-tab="talk" class="active"><span>🗣️</span>Talk</button>
-      <button data-tab="agent"><span>🛺</span>Saathi</button>
-      <button data-tab="learn"><span>📚</span>Learn</button>
-    </nav>
   </div>
 
-  <!-- onboarding -->
-  <div id="onboard" class="modal hidden">
-    <div class="sheet">
-      <div class="auto-drive"><svg viewBox="0 0 64 48"><use href="#auto-sym"/></svg></div>
-      <h2>Swagatha to Bengaluru! <span class="kn">ಸ್ವಾಗತ</span></h2>
-      <p>Saathi will be your interpreter, guide and Kannada teacher.</p>
-      <label>Your name<input id="obName" placeholder="e.g. Priya" /></label>
-      <label>Language you speak<select id="obLang"></select></label>
-      <button id="obGo" class="cta">Let's go, guru! 🛺</button>
-    </div>
-  </div>
+  <!-- Sheets -->
+  <div id="sheet" class="modal hidden"><div class="sheet" id="sheetBody"></div></div>
 
-  <!-- show to local -->
   <div id="showcard" class="modal hidden">
     <div class="big">
       <small>Please read · ದಯವಿಟ್ಟು ಓದಿ</small>
-      <div id="scKn"></div>
+      <div id="scKn" class="kn"></div>
       <div id="scRoman"></div>
-      <div class="row"><button id="scPlay" class="cta">🔊 Play again</button><button id="scClose" class="ghost">Close</button></div>
+      <div class="row"><button id="scPlay" class="btn">Play again</button><button id="scClose" class="btn ghost">Close</button></div>
     </div>
   </div>
 
-  <!-- recording -->
   <div id="recOverlay" class="modal hidden">
     <div class="recbox">
       <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <b id="recLabel">Listening…</b>
+      <b id="recLabel">Listening</b>
       <span id="recTime">0.0s</span>
-      <button id="recStop" class="cta red">■ Stop &amp; translate</button>
+      <button id="recStop" class="btn red">Stop</button>
       <small>Sarvam Saaras v4 · tuned for Bengaluru names</small>
     </div>
   </div>

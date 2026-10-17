@@ -25,7 +25,7 @@ http.createServer(async (req, res) => {
     let raw = '';
     for await (const chunk of req) raw += chunk;
     try { req.body = raw ? JSON.parse(raw) : {}; } catch { req.body = {}; }
-    const mod = await import(pathToFileURL(file).href);
+    const mod = await import(pathToFileURL(file).href + '?v=' + fs.statSync(file).mtimeMs);
     return mod.default(req, res);
   }
   let p = path.join(root, 'public', decodeURIComponent(url.pathname));

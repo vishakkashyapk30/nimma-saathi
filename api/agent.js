@@ -30,14 +30,26 @@ const TOOLS = [
       },
     },
   },
+  {
+    type: 'function',
+    function: {
+      name: 'remember',
+      description: 'Store a durable fact about the traveller\'s trip (where they stay, diet, dates, plans, preferences) so future answers are personalised. Use whenever the user reveals such a fact.',
+      parameters: { type: 'object', properties: { fact: { type: 'string', description: 'Short fact, e.g. "Staying in Indiranagar"' } }, required: ['fact'] },
+    },
+  },
 ];
 
-const strip = (s = '') => s.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+const strip = (s) => (s || '').replace(/<think>[\s\S]*?<\/think>/g, '').trim();
 
-export default handle(async ({ message, history = [], lang = 'en-IN', name = 'friend' }) => {
+export default handle(async ({ message, history = [], lang = 'en-IN', name = 'friend', trip = {} }) => {
   if (!message?.trim()) throw Object.assign(new Error('empty message'), { status: 400 });
   const langName = LANGS[lang] || 'English';
-  const cards = [], saved = [], steps = [];
+  const cards = [], saved = [], steps = [], memories = [];
+  const tripFacts = [
+    trip.stay && `Staying at/near: ${trip.stay}`, trip.diet && `Food preference: ${trip.diet}`, trip.notes && `Notes: ${trip.notes}`,
+    ...(trip.memories || []).slice(-15),
+  ].filter(Boolean).map((f) => '- ' + String(f).slice(0, 200)).join('\n');
 
   const tools = {
     async translate_to_kannada({ text }) {
@@ -56,6 +68,10 @@ export default handle(async ({ message, history = [], lang = 'en-IN', name = 'fr
       cards.push({ english, kannada, roman: roman || '' });
       return { ok: true };
     },
+    async remember({ fact }) {
+      if (fact) memories.push(String(fact).slice(0, 200));
+      return { ok: true };
+    },
   };
 
   const messages = [
@@ -68,7 +84,10 @@ Rules:
 - Whenever you suggest something to say, call translate_to_kannada for each line (max 3). Never write Kannada script yourself — the app shows the tool results as cards with audio.
 - Use situation_playbook when the question matches a topic.
 - Call save_phrase for the 1-2 most useful phrases so they land in the user's Learn deck, and mention you saved them.
-- In emergencies, lead with 112.`,
+- Call remember when the user reveals trip facts (where they stay, diet, plans), and use known facts to personalise advice (e.g. nearest metro to their stay, veg-only food).
+- In emergencies, lead with 112.
+What you know about this traveller's trip:
+${tripFacts || '- nothing yet'}`,
     },
     ...history.slice(-8).map((m) => ({ role: m.role === 'user' ? 'user' : 'assistant', content: String(m.content).slice(0, 1500) })),
     { role: 'user', content: message },
@@ -101,5 +120,5 @@ Rules:
   // de-duplicate cards by kannada text
   const seen = new Set();
   const uniq = cards.filter((c) => c.kannada && !seen.has(c.kannada) && seen.add(c.kannada)).slice(0, 5);
-  return { reply, cards: uniq, saved, steps };
+  return { reply, cards: uniq, saved, steps, memories };
 });

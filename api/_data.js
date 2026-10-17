@@ -74,3 +74,26 @@ export const DECKS = {
     ],
   },
 };
+
+// Bengaluru slang: one shown per day on Home
+export const SLANG = [
+  ['Maga', 'ಮಗ', 'maga', 'Dude / buddy. Used between friends: "Hegidiya maga?" (How are you, dude?)'],
+  ['Sakkath', 'ಸಕ್ಕತ್', 'sakkath', 'Awesome / super. "Sakkath aagide!" (It is awesome!)'],
+  ['Bombat', 'ಬೊಂಬಾಟ್', 'bombat', 'Superb, fantastic. Perfect for praising food.'],
+  ['Guru', 'ಗುರು', 'guru', 'Boss / bro. A friendly way to address auto drivers and strangers.'],
+  ['Swalpa adjust maadi', 'ಸ್ವಲ್ಪ ಅಡ್ಜಸ್ಟ್ ಮಾಡಿ', 'swalpa adjust maadi', 'Please adjust a little. The city motto, for buses, queues and life.'],
+  ['Yen samachara?', 'ಏನ್ ಸಮಾಚಾರ?', 'yen samaachaara?', 'What is up? / What is the news?'],
+  ['Scene illa', 'ಸೀನ್ ಇಲ್ಲ', 'scene illa', 'No chance / nothing happening.'],
+  ['Hogli bidi', 'ಹೋಗ್ಲಿ ಬಿಡಿ', 'hogli bidi', 'Let it go / never mind.'],
+  ['Gottilla', 'ಗೊತ್ತಿಲ್ಲ', 'gottilla', 'I do not know.'],
+  ['Banni', 'ಬನ್ನಿ', 'banni', 'Please come / welcome. You will hear it at every shop.'],
+  ['Nodona', 'ನೋಡೋಣ', 'nodona', 'Let us see. The polite way to say maybe.'],
+  ['Oota aayta?', 'ಊಟ ಆಯ್ತಾ?', 'oota aaytaa?', 'Had your meal? A warm everyday greeting.'],
+];
+
+// Kannada numbers, handy for fares and bargaining
+export const NUMBERS = [
+  [1, 'ಒಂದು', 'ondu'], [2, 'ಎರಡು', 'eradu'], [3, 'ಮೂರು', 'mooru'], [4, 'ನಾಲ್ಕು', 'naalku'], [5, 'ಐದು', 'aidu'],
+  [6, 'ಆರು', 'aaru'], [7, 'ಏಳು', 'elu'], [8, 'ಎಂಟು', 'entu'], [9, 'ಒಂಬತ್ತು', 'ombattu'], [10, 'ಹತ್ತು', 'hattu'],
+  [20, 'ಇಪ್ಪತ್ತು', 'ippattu'], [50, 'ಐವತ್ತು', 'aivattu'], [100, 'ನೂರು', 'nooru'], [200, 'ಇನ್ನೂರು', 'innooru'], [500, 'ಐನೂರು', 'ainooru'],
+];
