@@ -50,8 +50,7 @@
   function splash() {
     const sp = $('#splash'); if (!sp) return;
     const params = new URLSearchParams(location.hash.slice(1));
-    if (sessionStorage.getItem('ns_splash') || params.has('nosplash')) { sp.remove(); return; }
-    sessionStorage.setItem('ns_splash', '1');
+    if (params.has('nosplash')) { sp.remove(); return; }
     const lines = ['Loading Bengaluru… swalpa adjust maadi', 'Stuck at Silk Board, almost there…', 'Asking the auto anna for directions…', 'Brewing filter coffee…'];
     let li = 0; const lt = setInterval(() => { const el = $('#spLine'); if (el) el.textContent = lines[++li % lines.length]; }, 700);
     const steps = [[0, 'red'], [900, 'yellow'], [1600, 'green']];
