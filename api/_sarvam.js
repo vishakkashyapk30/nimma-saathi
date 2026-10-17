@@ -6,7 +6,7 @@ export const LANGS = {
 };
 
 function apiKey() {
-  const k = process.env.SARVAM_API || process.env.SARVAM_API_KEY;
+  const k = (process.env.SARVAM_API || process.env.SARVAM_API_KEY || '').trim();
   if (!k) throw Object.assign(new Error('SARVAM_API env var not set'), { status: 500 });
   return k;
 }
